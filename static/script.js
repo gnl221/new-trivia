@@ -40,3 +40,9 @@ socket.on('reset', () => {
 socket.on('correct answer', data => {
     // Highlight correct answer
 });
+
+document.querySelector('form').onsubmit = () => {
+    var num_players = document.querySelector('select').value;
+    socket.emit('start game', {num_players: num_players});
+    return false;  // prevent the form from being submitted normally
+};
