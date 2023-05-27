@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Greg's Trivia Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Greg's Trivia Game</h1>
+    <h2>Question: {{ game.current_question }}</h2>
+    <h3>Answers:</h3>
+    <ul>
+        {% for answer in game.current_answers %}
+            <li>{{ answer }}</li>
+        {% endfor %}
+    </ul>
+    <h3>Scores:</h3>
+    <ul>
+        {% for player in game.players %}
+            <li>Player {{ player.id }}: {{ player.score }}</li>
+        {% endfor %}
+    </ul>
+    <form action="{{ url_for('question') }}" method="post">
+        {% for player in game.players %}
+            <label for="player{{ player.id }}_answer">Player {{ player.id }}'s answer:</label>
+            <input type="text" id="player{{ player.id }}_answer" name="player{{ player.id }}_answer">
+        {% endfor %}
+        <input type="submit" value="Submit answers">
+    </form>
+    <a href="{{ url_for('reset') }}">Reset game</a>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
